@@ -1,0 +1,8 @@
+- name: Ensure that docker is installed
+  apt:
+    name: docker
+    state: latest
+- name: Ensure docker is running:
+  apt:
+    state: started
+    name: docker
