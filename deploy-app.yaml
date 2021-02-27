@@ -1,3 +1,4 @@
+#playbook to run docker role which builds image and deploy the containers
 ---
 - name: set up docker, build images and deploy application
   hosts: all
@@ -6,6 +7,4 @@
 
   roles:
   - docker
-
-
 

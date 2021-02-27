@@ -1,26 +1,32 @@
 ---
+# Check if docker is present, if not install it
 - name: Ensure that docker is installed
   apt:
     name: docker
     state: latest
 
+# Make sure docker service is running
 - name: Ensure docker is running
   systemd:
     state: started
     name: docker
 
+# build goapp:latest image
 - name: build go app image from dockerfile
   docker_image: 
-    path: /home/ubuntu/ansible
+    path: /home/ubuntu/files
     name: goapp
     tag: latest
 
-- name: build nginx app image from dockerfile
+# build nginx:latest image to serve go application
+- name: build nginx image from dockerfile
   docker_image:
-    path: /home/ubuntu/ansible/nginx
+    path: /home/ubuntu/files/nginx
     name: nginx
     tag: latest
 
+# launch go app and nginx container
+# network_mode: host is used as go application runs on lo interface 127.0.0.1:8080, therefore it needs to have network shared between containers and host to be accessible.
 - name: launch go container
   docker_container:
     name: goapp
