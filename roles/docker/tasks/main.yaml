@@ -1,11 +1,26 @@
+---
 - name: Ensure that docker is installed
   apt:
     name: docker
     state: latest
-- name: Ensure docker is running:
-  apt:
+
+- name: Ensure docker is running
+  systemd:
     state: started
     name: docker
+
+- name: build docker image from dockerfile
+  docker_image: 
+    path: /home/ubuntu/ansible
+    name: goapplication
+    tag: latest
+
+- name: Start go app container
+  docker_container:
+    name: goapplication
+    image: goapplication:latest
+    ports:
+     - "8080:80"
 
 
 
