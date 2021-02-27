@@ -50,6 +50,13 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 You can get the displayed IP (in above example 3.135.200.250) and navigate to it in both HTTP and HTTPS:
 
 
+## HTTP:
+![alt text](https://github.com/jgluchetti/ansible/blob/master/images/HTTP.jpg?raw=true)
+
+## HTTPS:
+![alt text](https://github.com/jgluchetti/ansible/blob/master/images/HTTPS.jpg?raw=true)
+
+![alt text](https://github.com/jgluchetti/ansible/blob/master/images/HTTPS_2.jpg?raw=true)
 
 
 
