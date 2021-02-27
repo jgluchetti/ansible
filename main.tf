@@ -19,7 +19,7 @@ provider "aws" {
   region = "us-east-2"
   access_key = ""
   secret_key = ""
-
+  
 }
 
 resource "aws_vpc" "my_vpc" {
@@ -90,10 +90,10 @@ resource "aws_instance" "my_server" {
 provisioner "remote-exec" {
    inline = [
           "sudo apt-get update",
-          "sudo apt-get update",
-          "sudo apt install -y docker.io",
-          "sudo apt install -y python3-pip",
-          "sudo  pip3 install docker-py"
+	  "sudo apt-get update",
+	  "sudo apt install -y docker.io",
+	  "sudo apt install -y python3-pip",
+	  "sudo  pip3 install docker-py"
    ]
 
    connection{
@@ -125,7 +125,7 @@ provisioner "local-exec" {
 
 }
 
-
+ 
 }
 
 resource "aws_internet_gateway" "my_gateway" {
@@ -158,3 +158,6 @@ resource "aws_route_table_association" "my_route_table_association" {
   subnet_id      = aws_subnet.my_subnet.id
   route_table_id = aws_route_table.my_route_table.id
 }
+
+
+
