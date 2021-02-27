@@ -9,16 +9,28 @@
     state: started
     name: docker
 
-- name: build docker image from dockerfile
+- name: build go app image from dockerfile
   docker_image: 
     path: /home/ubuntu/ansible
-    name: goapplication
+    name: goapp
     tag: latest
 
-- name: Start go app container
+- name: build nginx app image from dockerfile
+  docker_image:
+    path: /home/ubuntu/ansible/nginx
+    name: nginx
+    tag: latest
+
+- name: launch go container
   docker_container:
-    name: goapplication
-    image: goapplication:latest
+    name: goapp
+    image: goapp:latest
+    network_mode: host 
     restart_policy: always
-    ports:
-     - "80:80"
+
+- name: Launch nginx container
+  docker_container:
+    name: nginx
+    image: nginx:latest
+    network_mode: host
+    restart_policy: always
