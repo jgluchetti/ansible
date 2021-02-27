@@ -10,7 +10,7 @@ terraform {
 locals {
   ssh_user = "ubuntu"
   key_name = "access-key"
-  private_key_path = "C:/Users/T-Gamer/Desktop/awskeys/access-key.pem"
+  private_key_path = "/home/ubuntu/ansible/access-key.pem"
 
 }
 
@@ -19,7 +19,7 @@ provider "aws" {
   region = "us-east-2"
   access_key = ""
   secret_key = ""
-  
+
 }
 
 resource "aws_vpc" "my_vpc" {
@@ -87,12 +87,24 @@ resource "aws_instance" "my_server" {
   security_groups = [aws_security_group.my_sec_group.id]
   key_name = "access-key"
 
-              
-#provisioner "local-exec" {
-#  command = "ansible-playbook -i ${aws_instance.my_server.public_ip}, deploy-app.yaml"
+provisioner "remote-exec" {
+   inline = [
+          "sudo apt update"
+   ]
 
-#}
- 
+   connection{
+     type = "ssh"
+     user = "ubuntu"
+     private_key= file(local.private_key_path)
+     host = aws_instance.my_server.public_ip
+   }
+
+}
+provisioner "local-exec" {
+  command = "/usr/bin/ansible-playbook -i ${aws_instance.my_server.public_ip}, --private-key ${local.private_key_path} deploy-app.yaml"
+
+}
+
 }
 
 resource "aws_internet_gateway" "my_gateway" {
@@ -125,6 +137,3 @@ resource "aws_route_table_association" "my_route_table_association" {
   subnet_id      = aws_subnet.my_subnet.id
   route_table_id = aws_route_table.my_route_table.id
 }
-
-
-
