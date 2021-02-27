@@ -1,5 +1,5 @@
 ---
-- name: set up docker and build dockerfile
+- name: set up docker, build images and deploy application
   hosts: all
   remote_user: ubuntu
   become: yes
