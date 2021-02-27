@@ -27,6 +27,7 @@
 
 # launch go app and nginx container
 # network_mode: host is used as go application runs on lo interface 127.0.0.1:8080, therefore it needs to have network shared between containers and host to be accessible.
+# restart policy set to always to guarantee containers start on system reboot
 - name: launch go container
   docker_container:
     name: goapp
