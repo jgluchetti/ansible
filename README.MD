@@ -1,51 +1,59 @@
-# Configuration Management Challenge
+# Ansible + Terraform AWS EC2 creation and docker go application deployment
 
-Your task is to manage the state of a node using configuration management.
+This project creates an EC2 machine in AWS cloud, install docker and related dependencies on it and deploy a containerized go application, serving it in HTTP and HTTPS through Nginx.
 
-Your configuration should be able to:
+## How to run the code:
 
-1. Deploy the instance. be able to provision an instance in a cloud of your like (OCI, AWS, GCP Azure), if you have any, a problem we accept a VirtualBox. We like a lot OCI.
-2. Manage a HTTP Server to listen in HTTP and HTTPS
-3. Delivery the application using Docker and ensure it will "survire" at restarts
-4. A simple way to update the binary
+First of all, after pulling the project, please insert your AWS root access and secret key into terraform main.tf below section:
 
-You can pick the configuration management tool from the above list:
+```
+provider "aws" {
+  region = "us-east-2"
+  access_key = ""       --- INSERT YOUR ROOT ACCESS KEY HERE
+  secret_key = ""       --- INSERT YOUR ROOT SECRET KEY HERE
+  
+}
+```
 
-> Ansible + terraform (prefered)
+Also, please insert your EC2 access key name pen under local variable private_key_path
 
-> Chef + terraform
+```
+locals {
+  ssh_user = "ubuntu"
+  key_name = "access-key"
+  private_key_path = "/home/ubuntu/ansible/access-key.pem"  --- INSERT YOUR PEM FILE PATH HERE
 
-Keep in mind, an evaluator will check out your repository and will review:
+}
+```
 
-1. Code design
-2. Best practices
+After above configurations, Terraform should be good to go:
 
-The evaluator will execute your code and it should be able to see the that the application is deployed and running.
+``` 
+terraform init
+terraform plan
+terraform apply
+```
 
-## Things you need to known
+At the execution logs you should be able to see Terraform provision the EC2, install docker and it's dependencies, copy Dockerfile and nginx config to EC2 and run ansible-playbook.
+If everything goes well at the end you should see similar output:
 
-1. `go build main.go` builds the app.
-2. This application starts at port 8080 on localhost.
-3. We appreciate Makefiles :)
-4. Keep in mind, in the evaluator machine, does not have go compiler installed.
-5. To see the content, access: https://\<host\>/
+```
+aws_instance.my_server (local-exec): PLAY RECAP *********************************************************************
+aws_instance.my_server (local-exec): 3.135.200.250              : ok=7    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
-> Tests should show that this page is reachable and is specific to the content the test page sends back.
+aws_instance.my_server: Creation complete after 3m35s [id=i-08f5caef533ef67fb]
 
-## Starting the Test
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
-Create a branch, please, use mnemonic names. If you will use automation and add the source for ansible and terraform, create a branch named ansible.
+```
 
-## Delivery Instructions
+You can get the displayed IP (in above example 3.135.200.250) and navigate to it in both HTTP and HTTPS:
 
-1. You must provide your github or gitlab with your repo.
-1. Commit your code in your repo and send it to recruitment team.
-1. Please, give to us a documentation. We will read it see how to run your code.
 
-P.S. comments matters. Please, don't rebase your code, we want see how your construction was evolved.
 
-## Format
 
-* This assessment must be delivered within 1 week.
-* You must be prepared to walk an evaluator through all the created artifacts including tests
-    * Mention anything that was asked but not delivered and why, and any additional comments.
+
+
+
+
+
