@@ -89,7 +89,11 @@ resource "aws_instance" "my_server" {
 
 provisioner "remote-exec" {
    inline = [
-          "sudo apt update"
+          "sudo apt-get update",
+          "sudo apt-get update",
+          "sudo apt install -y docker.io",
+          "sudo apt install -y python3-pip",
+          "sudo  pip3 install docker-py"
    ]
 
    connection{
@@ -99,11 +103,28 @@ provisioner "remote-exec" {
      host = aws_instance.my_server.public_ip
    }
 
+
 }
+
+provisioner "file" {
+    source      = "~/ansible/"
+    destination = "~/"
+
+    connection{
+     type = "ssh"
+     user = "ubuntu"
+     private_key= file(local.private_key_path)
+     host = aws_instance.my_server.public_ip
+   }
+
+  }
+
+
 provisioner "local-exec" {
   command = "/usr/bin/ansible-playbook -i ${aws_instance.my_server.public_ip}, --private-key ${local.private_key_path} deploy-app.yaml"
 
 }
+
 
 }
 
