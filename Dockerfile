@@ -12,3 +12,4 @@ EXPOSE 8080:80
 ADD script.sh /app/
 RUN chmod +x /app/script.sh
 CMD /app/script.sh
+

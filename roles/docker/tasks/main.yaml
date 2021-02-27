@@ -20,7 +20,4 @@
     name: goapplication
     image: goapplication:latest
     ports:
-     - "8080:80"
-
-
-
+     - "80:80"
