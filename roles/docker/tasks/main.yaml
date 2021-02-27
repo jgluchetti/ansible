@@ -19,5 +19,6 @@
   docker_container:
     name: goapplication
     image: goapplication:latest
+    restart_policy: always
     ports:
      - "80:80"
