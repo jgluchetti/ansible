@@ -30,7 +30,6 @@ After above configurations, Terraform should be good to go:
 
 ``` 
 terraform init
-terraform plan
 terraform apply
 ```
 
@@ -53,7 +52,7 @@ You can get the displayed IP (in above example 3.135.200.250) and navigate to it
 ## HTTP:
 ![alt text](https://github.com/jgluchetti/ansible/blob/master/images/HTTP.jpg?raw=true)
 
-## HTTPS:
+## HTTPS - using self signed openSSL certificates:
 ![alt text](https://github.com/jgluchetti/ansible/blob/master/images/HTTPS.jpg?raw=true)
 
 ![alt text](https://github.com/jgluchetti/ansible/blob/master/images/HTTPS_2.jpg?raw=true)
