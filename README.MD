@@ -4,7 +4,7 @@ This project creates an EC2 machine in AWS cloud, install docker and related dep
 
 ## How to run the code:
 
-First of all, after pulling the project, please insert your AWS root access and secret key into terraform main.tf below section:
+First of all, after cloning the project, please insert your AWS root access and secret key into terraform main.tf below section:
 
 ```
 provider "aws" {
@@ -52,12 +52,17 @@ You can copy the displayed IP (in above example 3.135.200.250) and navigate to i
 ## HTTP:
 ![alt text](https://github.com/jgluchetti/ansible/blob/master/images/HTTP.jpg?raw=true)
 
-## HTTPS - using self signed openSSL certificates:
+## HTTPS:
+When https url is opened, below error is shown as we are using openSSL self signed certificates
 ![alt text](https://github.com/jgluchetti/ansible/blob/master/images/HTTPS.jpg?raw=true)
-
+After going to advanced tab and proceeding to the address we can see application is working:
 ![alt text](https://github.com/jgluchetti/ansible/blob/master/images/HTTPS_2.jpg?raw=true)
 
-
+In case you need to change the code inside go application, below steps can be executed:
+- Go to files directory which contains main.go
+- Update the main.go file with the new code
+- rebuild docker image: docker build -t goapp:latest .
+- redeploy go app docker container: docker run -d --network host goapp:latest
 
 
 
