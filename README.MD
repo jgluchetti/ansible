@@ -46,7 +46,7 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
 ```
 
-You can get the displayed IP (in above example 3.135.200.250) and navigate to it in both HTTP and HTTPS:
+You can copy the displayed IP (in above example 3.135.200.250) and navigate to it in both HTTP and HTTPS:
 
 
 ## HTTP:
