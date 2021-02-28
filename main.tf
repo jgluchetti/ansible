@@ -9,6 +9,7 @@ terraform {
 }
 
 # Variables set up - Please update private_key_path to point to your EC2 access key
+# Please make sure that your access-key.pem has 400 permission
 locals {
   ssh_user = "ubuntu"
   key_name = "access-key"
