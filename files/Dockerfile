@@ -5,8 +5,8 @@ RUN mkdir /app
 ADD . /app
 WORKDIR /app
 # build go binary
-RUN go build
+RUN go build main.go
 # expose go app port 8080
 EXPOSE 8080
 # run go application
-CMD ["./app"]
+CMD ["./main"]
