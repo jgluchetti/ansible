@@ -58,8 +58,9 @@ When https url is opened, below error is shown as we are using openSSL self sign
 After going to advanced tab and proceeding to the address we can see application is working:
 ![alt text](https://github.com/jgluchetti/ansible/blob/master/images/HTTPS_2.jpg?raw=true)
 
+## How to update the application and redeploy docker application
 In case you need to change the code inside go application, below steps can be executed:
-- Go to files directory which contains main.go
+- Go to ansible/files directory which contains main.go
 - Update the main.go file with the new code
 - rebuild docker image: docker build -t goapp:latest .
 - redeploy go app docker container: docker run -d --network host goapp:latest
