@@ -20,8 +20,8 @@ locals {
 # Configure the AWS Provider - please provide your access key and secret_key on below fields
 provider "aws" {
   region = "us-east-2"
-  access_key = ""
-  secret_key = ""
+  access_key = " "
+  secret_key = " "
   
 }
 
@@ -98,8 +98,8 @@ resource "aws_instance" "my_server" {
   security_groups = [aws_security_group.my_sec_group.id]
   key_name = "access-key"
 
-# Remote exec to update ubuntu packages (sudo apt-get update is run twice as it sometimes fail downloading few packages on first attempt)
-# Also remote exec install docker, python3-pip and docker-py (used from ansible)
+# Remote exec to update ubuntu packages (sudo apt-get update is run twice as it sometimes fail downloading few packages on first attempt, this seems to be a known bug)
+# Also, remote exec install docker, python3-pip and docker-py which are used while running the ansible playbook
 provisioner "remote-exec" {
    inline = [
     "sudo apt-get update",
